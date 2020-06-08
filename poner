@@ -1,0 +1,14 @@
+gamemode=survival
+allow-nether=true
+enable-command-block=false
+op-permission-level=4
+rcon.password=
+motd=A Minecraft Server
+hardcore=false
+white-list=false
+pvp=true
+difficulty=easy
+spawn-monsters=true
+max-players=20
+online-mode=true
+spawn-npcs=true
