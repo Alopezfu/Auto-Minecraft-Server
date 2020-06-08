@@ -7,17 +7,13 @@ rcon.port=25575
 server-port=25565
 enable-rcon=false
 enable-query=false
-
 prevent-proxy-connections=false
 generator-settings=
 resource-pack=
 level-name=world
 player-idle-timeout=0
-
 query.port=25565
 force-gamemode=false
-
-
 broadcast-console-to-ops=true
 generate-structures=true
 spawn-animals=true

@@ -2,8 +2,8 @@ import urllib.request, os, sys, subprocess
 from os import path
 
 url = 'http://checkip.amazonaws.com/'
-f = urllib.request.urlopen(url)
-ip=str(f.read().decode('utf-8')).strip()
+aws = urllib.request.urlopen(url)
+ip=str(aws.read().decode('utf-8')).strip()
 dir = os.path.expanduser('~') + '/minecraft-server'
 
 def getJAR():
@@ -21,7 +21,7 @@ def install():
     f.write(s)
     f.close()
     print('\x1bc')
-    main()
+    config()
 
 def menu():
     print("IP DEL SERVIDOR: " + ip) 
@@ -31,11 +31,12 @@ def menu():
     return opt
 
 def config():
+    os.chdir(dir)
     print('\x1bc')
     gamemode = input("Modo de juego (survival,creative,adventure,spectator): ")
     allownether = input("Permitir nether (true/false):")
     enablecommandblock = input("Permitir bloque de comandos (true/false):")
-    oppermissionlevel = int(input("Nivel de permisos (1,2,3 o 4):"))
+    oppermissionlevel = input("Nivel de permisos (1,2,3 o 4):")
     rconpassword = input("Contraseña (en blanco, sin constraseña):")
     motd = input("Nombre del servidor (en blanco, A Minecraft Server):")
     hardcore = input("Hablitar hardcore (true/false):")
@@ -43,9 +44,33 @@ def config():
     pvp = input("Hablitar pvp (true/false):")
     difficulty = input("Dificultad (peaceful,easy,normal,hard):")
     spawnmonsters = input("Spawn de monstruos (true/false):")
-    maxplayers = int(input("Jugadores permitidos (2,4,6 ...):"))
+    maxplayers = input("Jugadores permitidos (2,4,6 ...):")
     onlinemode = input("Solo jugadores premium (true/false):")
-    spawnnpcs = input("Spawn de aldeanos (true/false)")
+    spawnnpcs = input("Spawn de aldeanos (true/false):")
+
+    print("Descargando ficheros...")
+    url = 'https://raw.githubusercontent.com/Alopezfu/Auto-Minecraft-Server/master/template.txt'
+    urllib.request.urlretrieve(url, dir + '/server.properties')
+
+    f = open("server.properties", "a")
+    f.write("gamemode=" + gamemode + '\n')
+    f.write("allow-nether=true=" + allownether + '\n')
+    f.write("enable-command-block=" + enablecommandblock + '\n')
+    f.write("op-permission-level=" + oppermissionlevel + '\n')
+    f.write("rcon.password=" + rconpassword + '\n')
+    f.write("motd=" + motd + '\n')
+    f.write("hardcore=" + hardcore + '\n')
+    f.write("white-list=" + whitelist + '\n')
+    f.write("pvp=" + pvp + '\n')
+    f.write("difficulty=" + difficulty + '\n')
+    f.write("spawn-monsters=" + spawnmonsters + '\n')
+    f.write("max-players=" + maxplayers + '\n')
+    f.write("online-mode=" + onlinemode + '\n')
+    f.write("spawn-npcs=" + spawnnpcs)
+    f.close()
+    print('\x1bc')
+    print("Server configurado")
+    main()
 
 def main():
     print('\x1bc')
