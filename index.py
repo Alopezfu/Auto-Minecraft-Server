@@ -1,8 +1,10 @@
 import urllib.request, os, sys, subprocess
 from os import path
 
+url = 'http://checkip.amazonaws.com/'
+f = urllib.request.urlopen(url)
+ip=str(f.read().decode('utf-8')).strip()
 dir = os.path.expanduser('~') + '/minecraft-server'
-ip = "8.8.8.8"
 
 def getJAR():
     os.mkdir(dir)
@@ -28,6 +30,23 @@ def menu():
     opt = int(input("Selecciona una opción: "))
     return opt
 
+def config():
+    print('\x1bc')
+    gamemode = input("Modo de juego (survival,creative,adventure,spectator): ")
+    allownether = input("Permitir nether (true/false):")
+    enablecommandblock = input("Permitir bloque de comandos (true/false):")
+    oppermissionlevel = int(input("Nivel de permisos (1,2,3 o 4):"))
+    rconpassword = input("Contraseña (en blanco, sin constraseña):")
+    motd = input("Nombre del servidor (en blanco, A Minecraft Server):")
+    hardcore = input("Hablitar hardcore (true/false):")
+    whitelist = input("Hablitar lista blanca (true/false):")
+    pvp = input("Hablitar pvp (true/false):")
+    difficulty = input("Dificultad (peaceful,easy,normal,hard):")
+    spawnmonsters = input("Spawn de monstruos (true/false):")
+    maxplayers = int(input("Jugadores permitidos (2,4,6 ...):"))
+    onlinemode = input("Solo jugadores premium (true/false):")
+    spawnnpcs = input("Spawn de aldeanos (true/false)")
+
 def main():
     print('\x1bc')
     if not path.exists(dir + "/eula.txt"):
@@ -39,11 +58,7 @@ def main():
         if opt == 1:
             subprocess.run(["java", "-jar", dir + "/server.jar", "nogui"])
         elif opt == 2:
-            name =  input("Nombre del server: ")
-            players =  int(input("Numero maxsimo de jugadores: "))
-            mode =  input("Modo de juego (survival/creative): ")
-            commandBlock = input("Permitir command-block (si/no):")
-            pvp = input("Permitir pvp (si/no):")
+            config()
         else:
             main()
 
